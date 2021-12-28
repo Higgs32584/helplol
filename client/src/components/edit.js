@@ -26,9 +26,9 @@ class Edit extends Component {
       .get("http://localhost:5000/animals" + this.props.match.params.id)
       .then((response) => {
         this.setState({
-          person_name: response.data.person_name,
-          person_position: response.data.person_position,
-          person_level: response.data.person_level,
+          person_name: response.data.name,
+          person_position: response.data.id,
+          person_level: response.data.description,
         });
       })
       .catch(function (error) {
@@ -39,19 +39,19 @@ class Edit extends Component {
   // These methods will update the state properties.
   onChangePersonName(e) {
     this.setState({
-      person_name: e.target.value,
+      name: e.target.value,
     });
   }
 
   onChangePersonPosition(e) {
     this.setState({
-      person_position: e.target.value,
+      description: e.target.value,
     });
   }
 
   onChangePersonLevel(e) {
     this.setState({
-      person_level: e.target.value,
+      id: e.target.value,
     });
   }
 
@@ -59,9 +59,9 @@ class Edit extends Component {
   onSubmit(e) {
     e.preventDefault();
     const newEditedperson = {
-      person_name: this.state.person_name,
-      person_position: this.state.person_position,
-      person_level: this.state.person_level,
+      person_name: this.state.name,
+      person_position: this.state.id,
+      person_level: this.state.description,
     };
     console.log(newEditedperson);
 

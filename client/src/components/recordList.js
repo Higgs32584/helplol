@@ -21,6 +21,8 @@ const Record = (props) => (
     </td>
   </tr>
 );
+const { search } = window.location;
+const query = new URLSearchParams(search).get('s');
 
 export default class RecordList extends Component {
   // This is the constructor that shall store our data retrieved from the database
@@ -30,10 +32,12 @@ export default class RecordList extends Component {
     this.state = { records: [] };
   }
 
+  //this.query = this.query.bind(this);
+  
   // This method will get the data from the database.
   componentDidMount() {
     axios
-      .get("http://localhost:5000/animals/")
+      .get("http://localhost:5000/animals")
       .then((response) => {
         this.setState({ records: response.data });
       })
@@ -52,21 +56,25 @@ export default class RecordList extends Component {
       record: this.state.records.filter((el) => el._id !== id),
     });
   }
-
   
+  // .filter((record) => record.text.toLowerCase().includes(this.query))
+
+  // {tasks.filter((task) => task.text.toLowerCase().includes(query)).map((task) => (
+  //   <Task key={task.id} task={task} onDelete={onDelete} onToggle={onToggle}/>))}
 
   // This method will map out the users on the table
   recordList() {
-    return this.state.records.map((currentrecord) => {
+    return this.state.records.filter((record) => record.name.toLowerCase().includes(query.toLowerCase())).map((currentrecord) => {
       return (
         <Record
           record={currentrecord}
-          deleteRecord={this.searchRecord}
+          deleteRecord={this.deleteRecord}
           key={currentrecord._id}
         />
       );
     });
   }
+  
 
   // This following section will display the table with the records of individuals.
   render() {
@@ -77,8 +85,8 @@ export default class RecordList extends Component {
           <thead>
             <tr>
               <th>Name</th>
-              <th>id</th>
-              <th>description</th>
+              <th>ID</th>
+              <th>Level</th>
               <th>Action</th>
             </tr>
           </thead>

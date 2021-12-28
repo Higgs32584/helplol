@@ -1,5 +1,5 @@
 import React from "react";
-
+import { useState } from "react";
 // We use Route in order to define the different routes of our application
 import { Route } from "react-router-dom";
 
@@ -8,15 +8,25 @@ import Navbar from "./components/navbar";
 import Edit from "./components/edit";
 import Create from "./components/create";
 import RecordList from "./components/recordList";
-import Search from "./components/Search";
 
 const App = () => {
   return (
     <div>
       <Navbar />
-      <Search/>
       <Route exact path="/">
-      <RecordList/>
+      <form action="/" method="get"> 
+        <label htmlFor="header-search">
+            <span className="visually-hidden">Search blog posts</span>
+        </label>
+        <input
+            type="text"
+            id="header-search"
+            placeholder="Search blog posts"
+            name="s" 
+        />
+        <button type="submit">Search</button>
+    </form>
+        <RecordList/>
       </Route>
       <Route path="/edit/:id" component={Edit} />
       <Route path="/create">
