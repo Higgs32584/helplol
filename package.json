@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "yarn": "^1.22.17"
-  },
-  "devDependencies": {
-    "ts-migrate": "^0.1.27"
-  }
-}

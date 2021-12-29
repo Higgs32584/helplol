@@ -21,6 +21,7 @@ const Record = (props) => (
     </td>
   </tr>
 );
+
 const { search } = window.location;
 const query = new URLSearchParams(search).get('s');
 
@@ -64,7 +65,7 @@ export default class RecordList extends Component {
 
   // This method will map out the users on the table
   recordList() {
-    return this.state.records.filter((record) => record.name.toLowerCase().includes(query.toLowerCase())).map((currentrecord) => {
+    return this.state.records.filter((record) => record.name.toLowerCase().includes(String(query).toLowerCase())).map((currentrecord) => {
       return (
         <Record
           record={currentrecord}
